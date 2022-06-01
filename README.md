@@ -8,7 +8,7 @@ Observaciones:
 # Pasos para correr api en Nodejs 
 1. Ubicarse en la carpeta principal del proyecto donde se encuentra el archivo index.js
 2. Abrir la consola y ejecutar npm install
-3. Ejecutar el comando ```node ```. o ```node ./index.js```
+3. Ejecutar el comando ```node .``` o ```node ./index.js```
 
 Observación: El puerto en que se ejecuta la API es el 4000
 
