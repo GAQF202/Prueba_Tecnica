@@ -8,13 +8,14 @@ Observaciones:
 # Pasos para correr api en Nodejs 
 1. Ubicarse en la carpeta principal del proyecto donde se encuentra el archivo index.js
 2. Abrir la consola y ejecutar npm install
-3. Ejecutar el comando nodejs
+3. Ejecutar el comando node . o node ./index.js
 
 Observación: El puerto en que se ejecuta la API es el 4000
 
 # Pasos para correr la app de React
 1. Ubicarse en el directorio Frontend/front dentro de la consola
 2. Ejecutar npm install
-3. Ejecutar el comando npm start
+3. Ejecutar el comando ```npm start```
+
 
 Observación: El puerto en que se ejecuta el frontend es el 3000
