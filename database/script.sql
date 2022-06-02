@@ -34,5 +34,6 @@ create table Asignacion(
 );
 
 use college;
+INSERT INTO Materias VALUES (null,'Gerson Aaron','3232','4:30-5:40','9',NOW());
 select * from Profesores;
 

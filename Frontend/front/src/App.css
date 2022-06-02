@@ -1,38 +1,121 @@
-.App {
+body{
+  background: rgb(212,255,134);
+  background: linear-gradient(90deg, rgba(212,255,134,1) 35%, rgba(35,255,46,1) 100%);  
+}
+
+
+
+.div-principal{
+  display: block;
+  position: relative;
+  width: 600px;
+  height: 600px;
+  border: solid 1px black;
+  margin: 30px auto;
+  background-color: #8a8888;
+}
+
+form{
+  background-color: #1c1d2a;
+  color: rgb(189, 185, 185);
+  padding: 10px;
+  margin: 30px auto;
+  display: block;
+  border: none;
+  width: 300px;
+}
+
+.button-send{
+  border: solid 1px #ccc;
+  padding: 8px;
+  outline: none;
+  width: 298px;
+  margin: 10px 0;
+}
+
+.field{
+  border: solid 1px #ccc;
+  padding: 8px;
+  outline: none;
+  width: 280px;
+  margin: 10px 0;
+}
+
+.field:focus{
+  border: solid 2px;
+  border-color: #89f228;
+}
+
+button{
+  font-family: Verdana, Geneva, Tahoma, sans-serif;
+}
+
+.button-menu{
+  width: 300px;
+  padding: 10px;
+}
+
+table{
+  background-color: rgb(234, 238, 235);
   text-align: center;
+  border-collapse: collapse;
+  width: 100%;
+  padding: 60px;
 }
 
-.App-logo {
-  height: 40vmin;
-  pointer-events: none;
+nav .button-nav{
+  font-size: 15px;
+  text-transform: uppercase;
+  color: rgb(236, 236, 230);
+  text-decoration: none;
+  line-height: 50px;
+  display: inline-block;
+  text-align: center;
+  height: 40px;
+  font-weight: bold;
 }
 
-@media (prefers-reduced-motion: no-preference) {
-  .App-logo {
-    animation: App-logo-spin infinite 20s linear;
-  }
+
+nav .button-nav:hover{
+  box-shadow: 0 10px #a7f871;
 }
 
-.App-header {
-  background-color: #282c34;
-  min-height: 100vh;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  font-size: calc(10px + 2vmin);
-  color: white;
+nav{
+  position: relative;
+  margin: 270px, auto 0;
+  width: 100%;
+  height: 50px;
+  background: rgb(111, 104, 96);
+  border-radius: 8px;
+  font-size: 0;
 }
 
-.App-link {
-  color: #61dafb;
+nav li{
+  display: inline-block;
+  margin: 0 20px;
 }
 
-@keyframes App-logo-spin {
-  from {
-    transform: rotate(0deg);
-  }
-  to {
-    transform: rotate(360deg);
-  }
+th, td{
+  padding: 10px;
+}
+
+thead{
+  background-color: rgb(249, 158, 31);
+  color: rgb(37, 31, 31);
+  border-bottom: solid 5px;
+}
+
+.div-results{
+  position: relative;
+  width: 100%;
+  height: 420px;
+  overflow: scroll;
+}
+
+tr:nth-child(even){
+  background-color: #ddd;
+}
+
+tr:hover{
+  background-color: #f3ac6a;
 }

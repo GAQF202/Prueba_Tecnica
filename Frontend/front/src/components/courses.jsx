@@ -1,12 +1,13 @@
 import React, { useEffect, useState,/* setState */} from "react";
 import '../App.css';
 
-function Students(){
+function Courses(){
 
     const [datos, setDatos] = useState({
         nombre: '',
-        telefono: '',
-        correo: ''
+        creditos: '',
+        horario: '',
+        idProfesor: ''
     })  
 
     const [id, setId] = useState({
@@ -16,8 +17,9 @@ function Students(){
     const [mod, setMod] = useState({
         id: '',
         nombre: '',
-        telefono: '',
-        correo: ''
+        creditos: '',
+        horario: '',
+        idProfesor: ''
     })
 
     const [professors, setProfessors] = useState([])
@@ -42,7 +44,7 @@ function Students(){
     }
 
     useEffect(()=>{
-        fetch("http://localhost:4000/profesores",{method:"GET"})
+        fetch("http://localhost:4000/cursos",{method:"GET"})
         .then((data)=>data.json())
         .then((json)=>{setProfessors(json)})
     },[professors])
@@ -51,7 +53,7 @@ function Students(){
     const createProfessor = (event)=>{
         console.log("entraaa")
         event.preventDefault()
-        fetch('http://localhost:4000/profesores',{
+        fetch('http://localhost:4000/cursos',{
             method: 'POST',
             headers: {
             'Content-Type': 'application/json',
@@ -59,29 +61,30 @@ function Students(){
             },
             body: JSON.stringify({
                 "nombre" : datos.nombre,
-                "telefono" : datos.telefono,
-                "correo" : datos.correo
+                "creditos" : datos.creditos,
+                "horario" : datos.horario,
+                "idProfesor" : datos.idProfesor
             })
         })
     }
     // METODO DELETE
     const deleteProfessor = (event)=>{
         event.preventDefault()
-        fetch('http://localhost:4000/profesores/'+id.id,{method: 'DELETE'})
+        fetch('http://localhost:4000/cursos/'+id.id,{method: 'DELETE'})
         .then((data)=>data.json())
         .then((json)=>{
             console.log(json.isDeleted)
             if (json.isDeleted == 0){
-                alert("Error: el profesor con el id indicado no existe")
+                alert("Error: el curso con el id indicado no existe")
             }else{
-                alert("Profesor eliminado correctamente")
+                alert("Curso eliminado correctamente")
             }
         })
     }
     // METODO PUT
     const updateProfessor = (event)=>{
         event.preventDefault()
-        fetch('http://localhost:4000/profesores/'+mod.id,{
+        fetch('http://localhost:4000/cursos/'+mod.id,{
             method: 'PUT',
             headers: {
             'Content-Type': 'application/json',
@@ -89,17 +92,18 @@ function Students(){
             },
             body: JSON.stringify({
                 "nombre" : mod.nombre,
-                "telefono" : mod.telefono,
-                "correo" : mod.correo
+                "creditos" : mod.creditos,
+                "horario"  : mod.horario,
+                "idProfesor" : mod.idProfesor
             })
         })
         .then((data)=>data.json())
         .then((json)=>{
             console.log(json.isUpdated)
             if (json.isUpdated == 0){
-                alert("Error: el profesor con el id indicado no existe")
+                alert("Error: el curso con el id indicado no existe")
             }else{
-                alert("Datos del profesor actualizados correctamente")
+                alert("Datos del curso actualizados correctamente")
             }
         })
     }
@@ -128,58 +132,66 @@ function Students(){
     return(
         <div>
             <div className="div-principal">
-                <button className="button-menu" onClick={()=>showWhat(1)}>Registrar Estudiante</button>
-                <button className="button-menu" onClick={()=>showWhat(2)}>Modificar Datos de Estudiante</button>
-                <button className="button-menu" onClick={()=>showWhat(3)}>Eliminar Estudiante</button>
+                <button className="button-menu" onClick={()=>showWhat(1)}>Registrar Curso</button>
+                <button className="button-menu" onClick={()=>showWhat(2)}>Modificar Datos de Curso</button>
+                <button className="button-menu" onClick={()=>showWhat(3)}>Eliminar Curso</button>
                 <button className="button-menu" onClick={()=>showWhat(4)}>Ver Registros</button>
                 <div className="div-insert-professor">
                     <form className="form-create-professor" onSubmit={createProfessor} style={{display:sCreate?'block':'none'}}>
-                        <label htmlFor="">Nombre</label><br />
+                        <label htmlFor="">Nombre del curso</label><br />
                         <input className="field" type="text" name="nombre" placeholder="" onChange={handleInputChange}/><br />
-                        <label htmlFor="">Numero telefónico</label><br />
-                        <input className="field" type="number" name="telefono" placeholder="" onChange={handleInputChange} /><br />
-                        <label htmlFor="">Correo electrónico</label><br />
-                        <input className="field" type="email" name="correo" placeholder="" onChange={handleInputChange} /><br />
+                        <label htmlFor="">Créditos</label><br />
+                        <input className="field" type="number" name="creditos" placeholder="" onChange={handleInputChange} /><br />
+                        <label htmlFor="">Horario</label><br />
+                        <input className="field" type="text" name="horario" placeholder="" onChange={handleInputChange} /><br />
+                        <label htmlFor="">Id del Profesor</label><br />
+                        <input className="field" type="number" name="idProfesor" placeholder="" onChange={handleInputChange} /><br />
 
                         <button type="submit" className="button-send">Registrar profesor</button>
                     </form>
 
 
                     <form className="form-delete-professor" onSubmit={deleteProfessor} style={{display:sDelete?'block':'none'}}>
-                        <label htmlFor="">Id del Estudiante</label><br />
+                        <label htmlFor="">Id del Curso</label><br />
                         <input className="field" type="number" name="id" placeholder="" onChange={handleInputChange1}/><br />
 
-                        <button type="submit" className="button-send">Eliminar profesor</button>
+                        <button type="submit" className="button-send">Eliminar Curso</button>
                     </form>
 
 
                     <form className="form-update-professor" onSubmit={updateProfessor} style={{display:sUpdate?'block':'none'}}>
-                        <label htmlFor="">Id del Estudiante</label><br />
+                        <label htmlFor="">Id del Curso</label><br />
                         <input className="field" type="number" name="id" placeholder="" onChange={handleInputChange3}/><br />
-                        <label htmlFor="">Nombre</label><br />
+                        <label htmlFor="">Nombre del curso</label><br />
                         <input className="field" type="text" name="nombre" placeholder="" onChange={handleInputChange3}/><br />
-                        <label htmlFor="">Numero telefónico</label><br />
-                        <input className="field" type="number" name="telefono" placeholder="" onChange={handleInputChange3} /><br />
-                        <label htmlFor="">Correo electrónico</label><br />
-                        <input className="field" type="email" name="correo" placeholder="" onChange={handleInputChange3} /><br />
+                        <label htmlFor="">Creditos</label><br />
+                        <input className="field" type="number" name="creditos" placeholder="" onChange={handleInputChange3} /><br />
+                        <label htmlFor="">Horario</label><br />
+                        <input className="field" type="text" name="horario" placeholder="" onChange={handleInputChange3} /><br />
+                        <label htmlFor="">Id del Profesor</label><br />
+                        <input className="field" type="number" name="idProfesor" placeholder="" onChange={handleInputChange3} /><br />
 
-                        <button type="submit" className="button-send">Actualizar datos de profesor</button>
+                        <button type="submit" className="button-send">Actualizar datos de Curso</button>
                     </form>
                     <div className="div-results" style={{display:sConsult?'block':'none'}}>
                         <table className="div-registers" style={{display:sConsult?'block':'none'}}>
                             <tr>
                                 <th>id</th>
-                                <th>Nombre</th>
-                                <th>Telefono</th>
-                                <th>Correo</th>
+                                <th>Curso</th>
+                                <th>Creditos</th>
+                                <th>Horario</th>
+                                <th>id Profesor</th>
+                                <th>Fecha de Creación</th>
                             </tr>
                             {
                                 professors?.result?.map(elem=>(
                                     <tr>
                                         <td>{elem.id}</td>
-                                        <td>{elem.Nombre}</td>
-                                        <td>{elem.Telefono}</td>
-                                        <td>{elem.Correo}</td>
+                                        <td>{elem.Nombre_Curso}</td>
+                                        <td>{elem.Creditos}</td>
+                                        <td>{elem.Horario}</td>
+                                        <td>{elem.idProfesor}</td>
+                                        <td>{elem.Fecha_Creacion}</td>
                                     </tr>
                                 ))
                             }   
@@ -192,4 +204,4 @@ function Students(){
     )
 }
 
-export default Students;
+export default Courses;

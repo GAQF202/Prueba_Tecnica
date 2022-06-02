@@ -19,4 +19,16 @@ function CreateQuery(query){
     })
 }
 
+function searchProfessor(id){
+  var ver = 0
+  con.query("SELECT * FROM Profesores WHERE id = "+id, function (err, result) {
+    if (err) throw err;
+    if(result.length != 0){
+      ver = 1
+    }
+  });
+  console.log(ver)
+}
+
 module.exports.CreateQuery = CreateQuery
+module.exports.searchProfessor = searchProfessor
