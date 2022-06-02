@@ -1,5 +1,4 @@
 create database college;
-
 use college;
 create table Estudiantes(
 	id int primary key auto_increment,
@@ -26,14 +25,18 @@ create table Materias(
 );
 
 create table Asignacion(
-	id int primary key,
+	id int primary key auto_increment,
     idMateria int not null,
     idEstudiante int not null,
     foreign key (idMateria) references Estudiantes(id),
     foreign key (idEstudiante) references Materias(id)
 );
 
-use college;
+/*use college;
+UPDATE Profesores SET  Nombre_Curso='juanito', Creditos = '320', Horario = '4:30-5:40' , idProfesor = '8'  WHERE id = 3;
 INSERT INTO Materias VALUES (null,'Gerson Aaron','3232','4:30-5:40','9',NOW());
 select * from Profesores;
+select * from Materias;
+select * from Estudiantes;
+select * from Asignacion;*/
 

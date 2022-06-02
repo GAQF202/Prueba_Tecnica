@@ -153,3 +153,86 @@ app.get('/cursos', function(req,res){
     res.status(200).json({result});
   });
 })
+
+// CRUD DE ESTUDIANTES
+// CREACION
+app.post('/estudiantes', function(req,res){
+  let student = req.body
+  let query = "INSERT INTO Estudiantes VALUES (null,'"+student.nombre+"','"+student.telefono+"','"+student.correo+"')"
+  dbManagement(query)
+})
+// CONSULTA
+app.get('/estudiantes', function(req,res){
+  con.query("SELECT * FROM Estudiantes", function (err, result) {
+    if (err) throw err;
+    res.status(200).json({result});
+  });
+})
+// MODIFICACION
+app.put('/estudiantes/:id', function(req,res){
+  // OBTENGO LOS PARAMETROS ENVIADOS POR LA URL
+  let idProfessor = req.params.id 
+  let newDates = req.body
+  let query = ""
+  let modifies = []
+  let modify = ""
+  if(newDates.nombre != ""){modifies.push(" Nombre='"+newDates.nombre+"'")}
+  if(newDates.telefono != ""){modifies.push(" Telefono = '"+newDates.telefono+"'")}
+  if(newDates.correo != ""){modifies.push(" Correo = '"+newDates.correo+"' ")}
+  modifies.forEach((element,index) => {
+    if(index!=modifies.length-1){
+      modify += element + ","
+    }else{ 
+      modify += element
+    }
+  });
+  query = "UPDATE Estudiantes SET "+modify+" WHERE id = "+idProfessor;
+  con.query(query, function (err, result) {
+    if (err) throw err;
+    if (result.affectedRows == 0){
+      res.status(200).json({isUpdated:0});
+    }else{
+      res.status(200).json({isUpdated:1});
+    }
+  });
+})
+//ELIMINACION
+app.delete('/estudiantes/:id', function(req,res){
+  // OBTENGO LOS PARAMETROS ENVIADOS POR LA URL
+  let idProfessor = req.params.id 
+
+  var query = "DELETE FROM Estudiantes WHERE id = " + idProfessor;
+  con.query(query, function (err, result) {
+    if (err) throw err;
+
+    if (result.affectedRows == 0){
+      res.status(200).json({isDeleted:0});
+    }else{
+      res.status(200).json({isDeleted:1});
+    }
+  });
+})
+
+// ASIGNACION DE CURSOS Y CONSULTA
+// ASIGNACION
+app.post('/asignacion/:idEstudiante/:idMateria', function(req,res){
+  let assign = req.body
+  
+  con.query("SELECT * FROM Estudiantes WHERE id = "+assign.idEstudiante, function (err, result) {
+    if (err) throw err;
+    if(result.length != 0){
+      con.query("SELECT * FROM Materias WHERE id = "+assign.idCurso, function (err, result) {
+        if (err) throw err;
+        if(result.length != 0){
+          let query = "INSERT INTO Asignacion VALUES (null,'"+assign.idCurso+"','"+assign.idEstudiante+"')"
+          dbManagement(query)
+          res.status(200).json({isAssigned:1});
+        }else{  
+         res.status(200).json({isAssigned:0});
+        }
+      });
+    }else{  
+      res.status(200).json({isAssigned:0});
+     }
+  });
+})
