@@ -66,6 +66,14 @@ function Courses(){
                 "idProfesor" : datos.idProfesor
             })
         })
+        .then((data)=>data.json())
+        .then((json)=>{
+            if (json.isCreated == 0){
+                alert("Error: el profesor con el id indicado no existe")
+            }else{
+                alert("Curso creado correctamente")
+            }
+        })
     }
     // METODO DELETE
     const deleteProfessor = (event)=>{
